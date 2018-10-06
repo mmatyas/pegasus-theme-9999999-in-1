@@ -111,7 +111,7 @@ FocusScope {
 
             highlight: Item {
                 AnimatedSprite {
-                    source: "assets/bird1.png"
+                    source: "assets/birdA.png"
                     frameWidth: 16
                     frameHeight: 6
                     frameCount: 4
@@ -134,6 +134,12 @@ FocusScope {
                 background.source = "bg/%1.png".arg(page % background.bgCount);
             }
         }
-    }
 
+        Birds {
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: scaled(440)
+        }
+    }
 }
