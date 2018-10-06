@@ -103,10 +103,25 @@ FocusScope {
             model: api.currentCollection.gameList.model
             delegate: RetroText {
                 id: gametitle
+
+                readonly property int myIndex: index
+
                 text: zeroPad(index + 1, gamelist.digitCount) + "." + modelData.title
                 leftPadding: gamelist.leftPadding
                 width: ListView.view.width
                 elide: Text.ElideRight
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (gamelist.currentIndex !== parent.myIndex) {
+                            gamelist.currentIndex = parent.myIndex;
+                            return;
+                        }
+
+                        api.currentGame.launch();
+                    }
+                }
             }
 
             highlight: Item {
@@ -133,6 +148,21 @@ FocusScope {
                 contentY = page * maxVisibleLines * parent.textHeight;
                 background.source = "bg/%1.png".arg(page % background.bgCount);
             }
+        }
+
+        MouseArea {
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: gamelist.left
+            anchors.bottom: parent.bottom
+            onClicked: api.collectionList.decrementIndex()
+        }
+        MouseArea {
+            anchors.top: parent.top
+            anchors.left: gamelist.right
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            onClicked: api.collectionList.incrementIndex()
         }
 
         Birds {
