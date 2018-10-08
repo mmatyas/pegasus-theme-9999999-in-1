@@ -16,3 +16,7 @@ Find or create your `themes` directory; depending on your platform it should be 
 (see the [documentation](http://pegasus-frontend.org/docs/user-guide/config-dirs/) for more details)
 
 Then clone or download-and-extract this repository into your `themes` directory, and select the "ES2 Simple" in the settings menu of Pegasus.
+
+## License
+
+[![CC-BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
