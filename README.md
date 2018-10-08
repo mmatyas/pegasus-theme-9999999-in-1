@@ -6,16 +6,7 @@ Remake of the classic Famicom multicart menu theme for the [Pegasus](http://pega
 
 ## Installation
 
-Find or create your `themes` directory; depending on your platform it should be at:
-
-- `~/.config/pegasus-frontend/themes/` (Linux)
-- `C:/Users/[username]/AppData/Local/pegasus-frontend/themes` (Windows)
-- `~/Library/Preferences/pegasus-frontend/themes` (macOS)
-- `<storage>/pegasus-frontend/themes` (Android)
-
-(see the [documentation](http://pegasus-frontend.org/docs/user-guide/config-dirs/) for more details)
-
-Then clone or download-and-extract this repository into your `themes` directory, and select the "ES2 Simple" in the settings menu of Pegasus.
+[Download](https://github.com/mmatyas/pegasus-theme-9999999-in-1/archive/master.zip) and extract to your [theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes.md). You can then select the theme in the settings menu of Pegasus.
 
 ## License
 
