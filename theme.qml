@@ -17,8 +17,8 @@ FocusScope {
         return new Array(width - strlen + 1).join('0') + number;
     }
 
-    Keys.onLeftPressed: api.collectionList.decrementIndex()
-    Keys.onRightPressed: api.collectionList.incrementIndex()
+    Keys.onLeftPressed: api.collections.decrementIndex()
+    Keys.onRightPressed: api.collections.incrementIndex()
     Keys.onPressed: {
         if (event.isAutoRepeat)
             return;
@@ -62,7 +62,7 @@ FocusScope {
             id: collName
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            text: api.collectionList.current.name
+            text: api.collections.current.name
         }
 
         ListView {
@@ -70,7 +70,7 @@ FocusScope {
 
             readonly property int maxVisibleLines: 16
             readonly property int leftPadding: scaled(64)
-            readonly property int digitCount: api.currentCollection.gameList.count.toString().length
+            readonly property int digitCount: api.currentCollection.games.count.toString().length
 
             height: parent.textHeight * maxVisibleLines
             anchors.top: collName.bottom
@@ -89,7 +89,7 @@ FocusScope {
 
                 if (api.keys.isPageDown(event.key)) {
                     event.accepted = true;
-                    currentIndex = Math.min(api.currentCollection.gameList.count - 1,
+                    currentIndex = Math.min(api.currentCollection.games.count - 1,
                                             currentIndex + maxVisibleLines);
                     return;
                 }
@@ -100,7 +100,7 @@ FocusScope {
                 }
             }
 
-            model: api.currentCollection.gameList.model
+            model: api.currentCollection.games.model
             delegate: RetroText {
                 id: gametitle
 
@@ -142,7 +142,7 @@ FocusScope {
             highlightMoveDuration: 0
 
             onCurrentIndexChanged: {
-                api.currentCollection.gameList.index = currentIndex;
+                api.currentCollection.games.index = currentIndex;
 
                 var page = Math.floor(currentIndex / maxVisibleLines);
                 contentY = page * maxVisibleLines * parent.textHeight;
@@ -155,14 +155,14 @@ FocusScope {
             anchors.left: parent.left
             anchors.right: gamelist.left
             anchors.bottom: parent.bottom
-            onClicked: api.collectionList.decrementIndex()
+            onClicked: api.collections.decrementIndex()
         }
         MouseArea {
             anchors.top: parent.top
             anchors.left: gamelist.right
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            onClicked: api.collectionList.incrementIndex()
+            onClicked: api.collections.incrementIndex()
         }
 
         Birds {
