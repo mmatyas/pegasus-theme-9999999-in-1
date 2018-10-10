@@ -6,7 +6,7 @@ Remake of the classic Famicom multicart menu theme for the [Pegasus](http://pega
 
 ## Installation
 
-[Download](https://github.com/mmatyas/pegasus-theme-9999999-in-1/archive/master.zip) and extract to your [theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes.md). You can then select the theme in the settings menu of Pegasus.
+[Download](https://github.com/mmatyas/pegasus-theme-9999999-in-1/archive/master.zip) and extract to your [theme directory](http://pegasus-frontend.org/docs/user-guide/installing-themes). You can then select the theme in the settings menu of Pegasus.
 
 ## License
 
