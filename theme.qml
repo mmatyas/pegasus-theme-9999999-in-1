@@ -23,7 +23,7 @@ FocusScope {
         if (event.isAutoRepeat)
             return;
 
-        if (api.keys.isAccept(event.key)) {
+        if (api.keys.isAccept(event)) {
             event.accepted = true;
             api.currentGame.launch();
             return;
@@ -87,13 +87,13 @@ FocusScope {
                 if (event.isAutoRepeat)
                     return;
 
-                if (api.keys.isPageDown(event.key)) {
+                if (api.keys.isPageDown(event)) {
                     event.accepted = true;
                     currentIndex = Math.min(api.currentCollection.games.count - 1,
                                             currentIndex + maxVisibleLines);
                     return;
                 }
-                if (api.keys.isPageUp(event.key)) {
+                if (api.keys.isPageUp(event)) {
                     event.accepted = true;
                     currentIndex = Math.max(0, currentIndex - maxVisibleLines);
                     return;
