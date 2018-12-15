@@ -17,18 +17,23 @@ FocusScope {
         return new Array(width - strlen + 1).join('0') + number;
     }
 
-    Keys.onLeftPressed: api.collections.decrementIndex()
-    Keys.onRightPressed: api.collections.incrementIndex()
-    Keys.onPressed: {
-        if (event.isAutoRepeat)
-            return;
-
-        if (api.keys.isAccept(event)) {
-            event.accepted = true;
-            api.currentGame.launch();
-            return;
-        }
+    function modulo(a, n) {
+        return (a % n + n) % n;
     }
+
+
+    property int collectionIdx: 0
+    property var collection: api.collections.get(collectionIdx)
+
+    function nextCollection() {
+        collectionIdx = modulo(collectionIdx + 1, api.collections.count);
+    }
+    function prevCollection() {
+        collectionIdx = modulo(collectionIdx - 1, api.collections.count);
+    }
+
+    Keys.onLeftPressed: prevCollection()
+    Keys.onRightPressed: nextCollection()
 
 
     FontLoader { source: "assets/arcade-classic.ttf" }
@@ -62,7 +67,7 @@ FocusScope {
             id: collName
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            text: api.collections.current.name
+            text: collection.name
         }
 
         ListView {
@@ -70,7 +75,7 @@ FocusScope {
 
             readonly property int maxVisibleLines: 16
             readonly property int leftPadding: scaled(64)
-            readonly property int digitCount: api.currentCollection.games.count.toString().length
+            readonly property int digitCount: collection.games.count.toString().length
 
             height: parent.textHeight * maxVisibleLines
             anchors.top: collName.bottom
@@ -100,7 +105,7 @@ FocusScope {
                 }
             }
 
-            model: api.currentCollection.games.model
+            model: collection.games
             delegate: RetroText {
                 id: gametitle
 
@@ -111,6 +116,17 @@ FocusScope {
                 width: ListView.view.width
                 elide: Text.ElideRight
 
+                Keys.onPressed: {
+                    if (event.isAutoRepeat)
+                        return;
+
+                    if (api.keys.isAccept(event)) {
+                        event.accepted = true;
+                        modelData.launch();
+                        return;
+                    }
+                }
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
@@ -119,7 +135,7 @@ FocusScope {
                             return;
                         }
 
-                        api.currentGame.launch();
+                        modelData.launch();
                     }
                 }
             }
@@ -142,8 +158,6 @@ FocusScope {
             highlightMoveDuration: 0
 
             onCurrentIndexChanged: {
-                api.currentCollection.games.index = currentIndex;
-
                 var page = Math.floor(currentIndex / maxVisibleLines);
                 contentY = page * maxVisibleLines * parent.textHeight;
                 background.source = "bg/%1.png".arg(page % background.bgCount);
@@ -155,14 +169,14 @@ FocusScope {
             anchors.left: parent.left
             anchors.right: gamelist.left
             anchors.bottom: parent.bottom
-            onClicked: api.collections.decrementIndex()
+            onClicked: prevCollection()
         }
         MouseArea {
             anchors.top: parent.top
             anchors.left: gamelist.right
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            onClicked: api.collections.incrementIndex()
+            onClicked: nextCollection()
         }
 
         Birds {
