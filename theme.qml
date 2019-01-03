@@ -21,10 +21,6 @@ FocusScope {
         return (a % n + n) % n;
     }
 
-
-    property int collectionIdx: 0
-    property var collection: api.collections.get(collectionIdx)
-
     function nextCollection() {
         collectionIdx = modulo(collectionIdx + 1, api.collections.count);
     }
@@ -32,8 +28,21 @@ FocusScope {
         collectionIdx = modulo(collectionIdx - 1, api.collections.count);
     }
 
+    function launchGame(game) {
+        api.memory.set('collectionIndex', collectionIdx);
+        api.memory.set('gameIndex', gamelist.currentIndex);
+        game.launch();
+    }
+
+    property int collectionIdx: api.memory.get('collectionIndex') || 0
+    readonly property var collection: api.collections.get(collectionIdx) || api.collections.get(0)
+
     Keys.onLeftPressed: prevCollection()
     Keys.onRightPressed: nextCollection()
+
+    Component.onCompleted: {
+        gamelist.currentIndex = api.memory.get('gameIndex') || 0;
+    }
 
 
     FontLoader { source: "assets/arcade-classic.ttf" }
@@ -122,7 +131,7 @@ FocusScope {
 
                     if (api.keys.isAccept(event)) {
                         event.accepted = true;
-                        modelData.launch();
+                        launchGame(modelData);
                         return;
                     }
                 }
@@ -134,8 +143,7 @@ FocusScope {
                             gamelist.currentIndex = parent.myIndex;
                             return;
                         }
-
-                        modelData.launch();
+                        launchGame(modelData);
                     }
                 }
             }
