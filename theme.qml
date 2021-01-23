@@ -166,9 +166,12 @@ FocusScope {
             highlightMoveDuration: 0
 
             onCurrentIndexChanged: {
-                var page = Math.floor(currentIndex / maxVisibleLines);
+                const page = Math.floor(currentIndex / maxVisibleLines);
                 contentY = page * maxVisibleLines * parent.textHeight;
-                background.source = "bg/%1.png".arg(page % background.bgCount);
+
+                const bg_idx = page % background.bgCount;
+                background.source = "bg/%1.png".arg(bg_idx);
+                bgFire.visible = bg_idx == 9;
             }
         }
 
@@ -192,6 +195,16 @@ FocusScope {
             anchors.left: parent.left
             anchors.right: parent.right
             height: scaled(440)
+        }
+
+        Fire {
+            id: bgFire
+            visible: false
+
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: scaled(520)
+            anchors.topMargin: scaled(597)
         }
     }
 }
