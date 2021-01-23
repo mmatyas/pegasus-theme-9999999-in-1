@@ -1,4 +1,4 @@
-![](screenshot.png)
+![](.meta/screenshot.png)
 
 # Famicom Beach theme for Pegasus
 
