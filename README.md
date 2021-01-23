@@ -1,6 +1,6 @@
 ![](screenshot.png)
 
-# 9999999-in-1 theme for Pegasus
+# Famicom Beach theme for Pegasus
 
 Remake of the classic Famicom multicart menu theme for the [Pegasus](http://pegasus-frontend.org) frontend.
 
